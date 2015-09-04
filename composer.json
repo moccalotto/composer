@@ -1,4 +1,19 @@
 {
+    "name": "moccalotto/process",
+    "type": "library",
+    "description": "Tiny proc_open wrapper for PHP",
+    "keywords": ["proc_open", "process", "php"],
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kim Ravn Hansen",
+            "email": "moccalotto@gmail.com"
+        }
+    ],
     "require-dev": {
         "phpspec/phpspec": "~2.0"
     },
