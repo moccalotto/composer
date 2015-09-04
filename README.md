@@ -2,6 +2,8 @@
 
 A PHP process execution helper.
 
+It assists in I/O from processes. See examples below or run `demo.php` to see for yourself.
+
 ```php
 #!/usr/bin/env php
 <?php
