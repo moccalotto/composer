@@ -196,6 +196,15 @@ class Process
     }
 
     /**
+     * Get the exit code of a terminated program.
+     * @return int|false
+     */
+    public function exitCode()
+    {
+        return $this->status()['exitcode'];
+    }
+
+    /**
      * Return the resource handle to the process' stdin stream
      *
      * @return resource
