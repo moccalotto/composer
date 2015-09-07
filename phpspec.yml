@@ -1,0 +1,3 @@
+suites:
+    process_suite:
+        src_path: .
