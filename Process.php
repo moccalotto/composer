@@ -22,6 +22,16 @@ class Process
     protected $stdout;
     protected $stderr;
 
+    /**
+     * Create a Process object.
+     *
+     * @see proc_open
+     *
+     * @param resource $process Output from proc_open() call
+     * @param resource $stdin stdin stream
+     * @param resource $stdin stdout stream
+     * @param resource $stdin stderr stream
+     */
     public function __construct($process, $stdin, $stdout, $stderr)
     {
         if (!(is_resource($process) && get_resource_type($process) === 'process')) {
@@ -45,12 +55,25 @@ class Process
         $this->stderr = $stderr;
     }
 
+    /**
+     * Destructor.
+     *
+     * Ensures streams are closed.
+     */
     public function __destruct()
     {
         $this->closeStreams();
         $this->stop();
     }
 
+    /**
+     * Factory method.
+     *
+     * Run a command.
+     *
+     * @param string $command the command to execute.
+     * @return Process the proc_open wrapper
+     */
     public static function execute($command)
     {
         $pipe_descriptors = [
@@ -62,6 +85,11 @@ class Process
         return new static($process, ...$outpipes);
     }
 
+    /**
+     * Terminate the program and return when it has stopped.
+     *
+     * @return boolean True if the program terminated.
+     */
     public function stop()
     {
         if (is_resource($this->process)) {
@@ -70,6 +98,12 @@ class Process
         return false;
     }
 
+    /**
+     * Signal a process stop and return immediately.
+     *
+     * use Process::running to check if the program has stopped.
+     * @return boolean True if a signal has been sent.
+     */
     public function signalStop($signal = SIGTERM)
     {
         if (is_resource($this->process)) {
@@ -78,6 +112,9 @@ class Process
         return false;
     }
 
+    /**
+     * Close the IO streams.
+     */
     public function closeStreams()
     {
         if (is_resource($this->stdin)) {
