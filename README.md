@@ -57,11 +57,6 @@ echo $proc->readErrorToEnd();
 echo PHP_EOL;
 printf('Exit code: %d', $proc->exitCode());
 
-/**
- * Bash session example
- * where we do multiple calls.
- */
-
 echo PHP_EOL;
 echo PHP_EOL;
 echo PHP_EOL;
