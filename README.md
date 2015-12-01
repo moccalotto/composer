@@ -4,6 +4,21 @@ A PHP process execution helper.
 
 It assists in I/O from processes. See examples below or run `demo.php` to see for yourself.
 
+## Installation
+
+To add this package as a local, per-project dependency to your project, simply add a dependency on
+ `moccalotto/process` to your project's `composer.json` file like so:
+
+```json
+{
+    "require": {
+        "moccalotto/process": "~0.6"
+    }
+}
+```
+
+Alternatively simply call `composer require moccalotto/process`
+
 ```php
 #!/usr/bin/env php
 <?php
