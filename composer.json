@@ -15,11 +15,11 @@
         }
     ],
     "require-dev": {
-        "phpspec/phpspec": "~2.0"
+        "phpspec/phpspec": "~2.3"
     },
     "autoload" : {
         "psr-4": {
-            "Moccalotto\\Process\\": ""
+            "Moccalotto\\Process\\": "src"
         }
     }
 }
