@@ -1,4 +1,5 @@
 # Process
+[![Build Status](https://travis-ci.org/moccalotto/process.svg?branch=master)](https://travis-ci.org/moccalotto/process)
 
 A PHP process execution helper.
 
