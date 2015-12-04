@@ -12,7 +12,7 @@ use InvalidArgumentException;
 class Process
 {
     /**
-     * The current process resource
+     * The current process resource.
      *
      * @var resource
      */
@@ -28,9 +28,9 @@ class Process
      * @see proc_open
      *
      * @param resource $process Output from proc_open() call
-     * @param resource $stdin stdin stream
-     * @param resource $stdin stdout stream
-     * @param resource $stdin stderr stream
+     * @param resource $stdin   stdin stream
+     * @param resource $stdin   stdout stream
+     * @param resource $stdin   stderr stream
      */
     public function __construct($process, $stdin, $stdout, $stderr)
     {
@@ -72,6 +72,7 @@ class Process
      * Run a command.
      *
      * @param string $command the command to execute.
+     *
      * @return Process the proc_open wrapper
      */
     public static function execute($command)
@@ -82,19 +83,21 @@ class Process
             ['pipe', 'w'],
         ];
         $process = proc_open($command, $pipe_descriptors, $outpipes);
+
         return new static($process, ...$outpipes);
     }
 
     /**
      * Terminate the program and return when it has stopped.
      *
-     * @return boolean True if the program terminated.
+     * @return bool True if the program terminated.
      */
     public function stop()
     {
         if (is_resource($this->process)) {
             return proc_close($this->process);
         }
+
         return false;
     }
 
@@ -102,13 +105,15 @@ class Process
      * Signal a process stop and return immediately.
      *
      * use Process::running to check if the program has stopped.
-     * @return boolean True if a signal has been sent.
+     *
+     * @return bool True if a signal has been sent.
      */
     public function signalStop($signal = SIGTERM)
     {
         if (is_resource($this->process)) {
             return proc_terminate($this->process);
         }
+
         return false;
     }
 
@@ -132,7 +137,8 @@ class Process
     }
 
     /**
-     * Write $string to stdin
+     * Write $string to stdin.
+     *
      * @return int the number of bytes written.
      */
     public function write($string)
@@ -141,7 +147,8 @@ class Process
     }
 
     /**
-     * Read $length bytes from stdout
+     * Read $length bytes from stdout.
+     *
      * @return string
      */
     public function read($length)
@@ -150,7 +157,8 @@ class Process
     }
 
     /**
-     * Read line from stdout
+     * Read line from stdout.
+     *
      * @return string
      */
     public function readline()
@@ -160,6 +168,7 @@ class Process
 
     /**
      * Read stdout to the end of stream.
+     *
      * @return string
      */
     public function readToEnd()
@@ -168,7 +177,8 @@ class Process
     }
 
     /**
-     * Read line from stderr
+     * Read line from stderr.
+     *
      * @return string
      */
     public function readError($length)
@@ -177,7 +187,8 @@ class Process
     }
 
     /**
-     * Read line from stderr
+     * Read line from stderr.
+     *
      * @return string
      */
     public function readErrorLine()
@@ -187,6 +198,7 @@ class Process
 
     /**
      * Read stderr to the end of stream.
+     *
      * @return string
      */
     public function readErrorToEnd()
@@ -196,6 +208,7 @@ class Process
 
     /**
      * The the process status.
+     *
      * @link http://php.net/manual/en/function.proc-get-status.php
      * 
      * @return array
@@ -207,7 +220,8 @@ class Process
 
     /**
      * Is the process running?
-     * @return boolean
+     *
+     * @return bool
      */
     public function running()
     {
@@ -215,7 +229,8 @@ class Process
     }
 
     /**
-     * Get the process PID
+     * Get the process PID.
+     *
      * @return int
      */
     public function pid()
@@ -225,6 +240,7 @@ class Process
 
     /**
      * Return the command string that executed this process.
+     *
      * @return string
      */
     public function command()
@@ -234,6 +250,7 @@ class Process
 
     /**
      * Get the exit code of a terminated program.
+     *
      * @return int|false
      */
     public function exitCode()
@@ -242,7 +259,7 @@ class Process
     }
 
     /**
-     * Return the resource handle to the process' stdin stream
+     * Return the resource handle to the process' stdin stream.
      *
      * @return resource
      */
@@ -252,7 +269,7 @@ class Process
     }
 
     /**
-     * Return the resource handle to the process' stdout stream
+     * Return the resource handle to the process' stdout stream.
      *
      * @return resource
      */
@@ -262,7 +279,7 @@ class Process
     }
 
     /**
-     * Return the resource handle to the process' stderr stream
+     * Return the resource handle to the process' stderr stream.
      *
      * @return resource
      */

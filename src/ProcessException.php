@@ -4,4 +4,6 @@ namespace Moccalotto\Process;
 
 use RuntimeException;
 
-class ProcessException extends RuntimeException {}
+class ProcessException extends RuntimeException
+{
+}
