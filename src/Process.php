@@ -18,8 +18,25 @@ class Process
      */
     protected $process;
 
+    /**
+     * Stdin stream.
+     *
+     * @var resource
+     */
     protected $stdin;
+
+    /**
+     * Stdout stream.
+     *
+     * @var resource
+     */
     protected $stdout;
+
+    /**
+     * Stderr stream.
+     *
+     * @var resource
+     */
     protected $stderr;
 
     /**
