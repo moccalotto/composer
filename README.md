@@ -13,7 +13,7 @@ To add this package as a local, per-project dependency to your project, simply a
 ```json
 {
     "require": {
-        "moccalotto/process": "~0.6"
+        "moccalotto/process": "~0.7"
     }
 }
 ```
