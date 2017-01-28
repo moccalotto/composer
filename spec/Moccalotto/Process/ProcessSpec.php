@@ -137,7 +137,11 @@ class ProcessSpec extends ObjectBehavior
         $this->beConstructedThrough('execute', ['cat']);
         $this->write('test');
         $this->closeStdIn();
-        // $this->shouldThrow(ProcessException::class)->during('write', ['x']);
+        $this->shouldThrow(ProcessException::class)->duringWrite(['x']);
+        $this->closeStdOut();
+        $this->shouldThrow(ProcessException::class)->duringRead(4);
+        $this->closeStderr();
+        $this->shouldThrow(ProcessException::class)->duringReadError(4);
     }
 
     public function getMatchers()
