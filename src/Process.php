@@ -2,7 +2,6 @@
 
 namespace Moccalotto\Process;
 
-use ProcessException;
 use InvalidArgumentException;
 
 /**
