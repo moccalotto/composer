@@ -139,17 +139,41 @@ class Process
      */
     public function closeStreams()
     {
+        $this->closeStdIn();
+        $this->closeStdout();
+        $this->closeStdErr();
+    }
+
+    /**
+     * Close the stdin steram.
+     */
+    public function closeStdIn()
+    {
         if (is_resource($this->stdin)) {
             fclose($this->stdin);
-            $this->stdin = false;
+            $this->stdin = null;
         }
+    }
+
+    /**
+     * Close stdout stream.
+     */
+    public function closeStdout()
+    {
         if (is_resource($this->stdout)) {
             fclose($this->stdout);
-            $this->stdout = false;
+            $this->stdout = null;
         }
+    }
+
+    /**
+     * Close stdout stream.
+     */
+    public function closeStdErr()
+    {
         if (is_resource($this->stderr)) {
             fclose($this->stderr);
-            $this->stderr = false;
+            $this->stderr = null;
         }
     }
 
