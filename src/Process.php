@@ -2,6 +2,7 @@
 
 namespace Moccalotto\Process;
 
+use ProcessException;
 use InvalidArgumentException;
 
 /**
@@ -184,6 +185,9 @@ class Process
      */
     public function write($string)
     {
+        if (!$this->stdin) {
+            throw new ProcessException('stdin has been closed.');
+        }
         return fwrite($this->stdin, $string);
     }
 
@@ -194,6 +198,9 @@ class Process
      */
     public function read($length)
     {
+        if (!$this->stdout) {
+            throw new ProcessException('stdout has been closed.');
+        }
         return fread($this->stdout, $length);
     }
 
@@ -204,6 +211,9 @@ class Process
      */
     public function readline()
     {
+        if (!$this->stdout) {
+            throw new ProcessException('stdout has been closed.');
+        }
         return fgets($this->stdout);
     }
 
@@ -214,6 +224,9 @@ class Process
      */
     public function readToEnd()
     {
+        if (!$this->stdout) {
+            throw new ProcessException('stdout has been closed.');
+        }
         return stream_get_contents($this->stdout);
     }
 
@@ -224,6 +237,9 @@ class Process
      */
     public function readError($length)
     {
+        if (!$this->stderr) {
+            throw new ProcessException('stderr has been closed.');
+        }
         return fread($this->stderr, $length);
     }
 
@@ -234,6 +250,9 @@ class Process
      */
     public function readErrorLine()
     {
+        if (!$this->stderr) {
+            throw new ProcessException('stderr has been closed.');
+        }
         return fgets($this->stderr);
     }
 
@@ -244,6 +263,9 @@ class Process
      */
     public function readErrorToEnd()
     {
+        if (!$this->stderr) {
+            throw new ProcessException('stderr has been closed.');
+        }
         return stream_get_contents($this->stderr);
     }
 
@@ -251,7 +273,7 @@ class Process
      * The the process status.
      *
      * @link http://php.net/manual/en/function.proc-get-status.php
-     * 
+     *
      * @return array
      */
     public function status()
