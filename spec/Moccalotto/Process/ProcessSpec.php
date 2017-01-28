@@ -3,6 +3,7 @@
 namespace spec\Moccalotto\Process;
 
 use PhpSpec\ObjectBehavior;
+use Moccalotto\Process\ProcessException;
 
 class ProcessSpec extends ObjectBehavior
 {
@@ -25,16 +26,16 @@ class ProcessSpec extends ObjectBehavior
         $fake_process = proc_open('echo foobar', [$stream1, $stream2, $stream3], $streams_out);
 
         $this->beConstructedWith(null, $stream1, $stream2, $stream3);
-        $this->shouldThrow('\InvalidArgumentException')->duringInstantiation();
+        $this->shouldThrow('InvalidArgumentException')->duringInstantiation();
 
         $this->beConstructedWith($fake_process, null, $stream2, $stream3);
-        $this->shouldThrow('\InvalidArgumentException')->duringInstantiation();
+        $this->shouldThrow('InvalidArgumentException')->duringInstantiation();
 
         $this->beConstructedWith($fake_process, $stream1, null, $stream3);
-        $this->shouldThrow('\InvalidArgumentException')->duringInstantiation();
+        $this->shouldThrow('InvalidArgumentException')->duringInstantiation();
 
         $this->beConstructedWith($fake_process, $stream1, $stream2, null);
-        $this->shouldThrow('\InvalidArgumentException')->duringInstantiation();
+        $this->shouldThrow('InvalidArgumentException')->duringInstantiation();
     }
 
     public function it_can_be_created_via_helper_constructor()
@@ -119,9 +120,9 @@ class ProcessSpec extends ObjectBehavior
         $this->beConstructedThrough('execute', ['cat']);
         $this->write('foo')->shouldBe(3);
         $this->closeStreams();
-        $this->stdin()->shouldBe(false);
-        $this->stdout()->shouldBe(false);
-        $this->stderr()->shouldBe(false);
+        $this->stdin()->shouldBe(null);
+        $this->stdout()->shouldBe(null);
+        $this->stderr()->shouldBe(null);
     }
 
     public function it_shows_process_id()
@@ -129,6 +130,14 @@ class ProcessSpec extends ObjectBehavior
         $this->beConstructedThrough('execute', ['echo shawarma']);
         $this->processHandle()->shouldBeProcess();
         $this->pid()->shouldBeInteger();
+    }
+
+    public function it_throws_exceptions_when_accessing_closed_streams()
+    {
+        $this->beConstructedThrough('execute', ['cat']);
+        $this->write('test');
+        $this->closeStdIn();
+        // $this->shouldThrow(ProcessException::class)->during('write', ['x']);
     }
 
     public function getMatchers()
