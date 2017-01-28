@@ -111,7 +111,7 @@ class Process
     public function signalStop($signal = SIGTERM)
     {
         if (is_resource($this->process)) {
-            return proc_terminate($this->process);
+            return proc_terminate($this->process, $signal);
         }
 
         return false;
